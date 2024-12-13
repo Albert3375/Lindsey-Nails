@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belleza en tus Uñas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/nails.css">
+ 
+    <script>
+        const images = [
+            { src: 'img/nail1.jpg', title: 'Estilo 1' },
+            { src: 'img/nail2.jpg', title: 'Estilo 2' },
+            { src: 'img/nail3.jpg', title: 'Estilo 3' },
+            { src: 'img/nail4.jpg', title: 'Estilo 4' },
+            { src: 'img/nail5.jpg', title: 'Estilo 5' },
+            { src: 'img/nail6.jpg', title: 'Estilo 6' },
+            { src: 'img/nail7.jpg', title: 'Estilo 7' },
+            { src: 'img/nail8.jpg', title: 'Estilo 8' },
+            { src: 'img/nail9.jpg', title: 'Estilo 9' },
+            { src: 'img/nail10.jpg', title: 'Estilo 10' }
+        ];
+
+        let currentPage = 1;
+        const totalPages = images.length;
+
+        function loadPage() {
+            const page = document.getElementById('page');
+            const img = page.querySelector('img');
+            const title = page.querySelector('h3');
+
+            const image = images[currentPage - 1];
+            img.src = image.src;
+            img.alt = image.title;
+            title.textContent = image.title;
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadPage();
+                updatePageFlip();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                loadPage();
+                updatePageFlip();
+            }
+        }
+
+        function updatePageFlip() {
+            const page = document.getElementById('page');
+            page.style.transform = `rotateY(${currentPage % 2 === 0 ? 360 : 0}deg)`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadPage();
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">💅 Belleza en tus Uñas</div>
+        <nav>
+            <ul>
+                <li><a href="#intro">Inicio</a></
+                <li><a href="#catalog">Catálogo</a></li>
+                <li><a href="#book">Reserva</a></li>
+                <li><a href="#contact">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="intro" class="section">
+        <h2>Bienvenidos a la Belleza de tus Uñas</h2>
+        <p>Transforma tus uñas en una obra de arte. ¡Te ofrecemos los mejores estilos y diseños!</p>
+    </section>
+
+      <section id="mission-vision" class="mission-vision">
+        <h2>Nuestra Misión y Visión</h2>
+        <p>Ofrecemos un servicio de manicura de alta calidad, buscando siempre el bienestar y la satisfacción de nuestros clientes. Nos apasiona darles el mejor cuidado para que cada uno se sienta especial.</p>
+    </section>
+
+
+    <section id="catalog" class="section catalog">
+        <h2>Catálogo de Estilos</h2>
+        <div class="book-container">
+            <div id="page" class="book-page">
+                <img src="img/nail1.jpg" alt="Estilo 1">
+                <h3>Estilo 1</h3>
+            </div>
+            <button class="button" onclick="prevPage()">Anterior</button>
+            <button class="button" onclick="nextPage()">Siguiente</button>
+        </div>
+    </section>
+
+    <section id="book" class="section">
+        <h2>Reserva tu Cita</h2>
+        <p>Haz clic en el botón de abajo para reservar tu cita directamente a través de WhatsApp.</p>
+        <a href="https://wa.me/1234567890" class="whatsapp-button" target="_blank">¡Reserva Ahora!</a>
+    </section>
+
+  
+    <section class="testimonial-section">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <div class="testimonial">
+            <p>"¡Me encantaron mis uñas! El servicio es de calidad y la atención es muy profesional. Definitivamente volveré." 
+                <span class="customer-name">- Mariana</span>
+            </p>
+        </div>
+        <div class="testimonial">
+            <p>"Un lugar increíble. El ambiente es tan relajante y los resultados son siempre impecables. ¡Altamente recomendados!" 
+                <span class="customer-name">- Laura</span>
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Belleza en tus Uñas. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
