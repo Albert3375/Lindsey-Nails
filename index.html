@@ -1045,161 +1045,106 @@
         </div>
     </section>
 
-<!-- 🌸 Álbum de Fotos Moderno -->
-<section class="modern-album">
-  <div class="album-header">
-    <h2>Nuestro <span>Álbum</span> de Diseños</h2>
-  </div>
-
-  <div class="album-wrapper">
-    <button class="album-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-
-    <div class="album-viewer" id="albumViewer">
-      <img src="img/11.jpg" alt="Foto 1">
-      <img src="img/12.jpg" alt="Foto 2">
-      <img src="img/22.jpg" alt="Foto 3">
-      <img src="img/21.jpg" alt="Foto 4">
-    </div>
-
-    <button class="album-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-  </div>
-
-  <div class="album-indicator">
-    <span id="currentIndex">1</span> / <span id="totalImages">4</span>
-  </div>
-</section>
-
-<!-- Estilos -->
-<style>
-:root {
-  --main-color: #9b59b6;
-  --accent-color: #f1c40f;
-  --bg-light: #fafafa;
-  --shadow: 0 10px 30px rgba(0,0,0,0.15);
+    <!-- Álbum de Fotos -->
+    <section class="album-section">
+        <div class="particles" id="particles"></div>
+        <div class="container">
+            <h2 class="section-title">Nuestro <span>Álbum</span> de Diseños</h2>
+            <div class="album-container">
+                <div class="album" id="album">
+                    <div class="page page-front" id="page1">
+                        <img src="img/11.jpg" alt="Portada del álbum navideño">
+                    </div>
+                    <div class="page page-back" id="page2">
+                        <img src="img/12.jpg" alt="Diseño navideño 1">
+                    </div>
+                    <div class="page page-left" id="page3">
+                        <img src="img/21.jpg" alt="Diseño navideño 2">
+                    </div>
+                    <div class="page page-right" id="page4">
+                        <img src="img/22.jpg" alt="Diseño navideño 3">
+                    </div>
+                </div>
+                <div class="album-controls">
+                    <button class="album-btn" id="prev-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="album-counter">
+                        <span id="current-page">1</span> / <span id="total-pages">4</span>
+                    </div>
+                    <button class="album-btn" id="next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .album-container {
+  perspective: 2000px;
 }
 
-.modern-album {
+.album {
   position: relative;
-  padding: 60px 20px;
-  text-align: center;
-  background: linear-gradient(180deg, #fff 0%, #f9f9ff 100%);
+  width: 420px;
+  height: 320px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transition: transform 1s ease;
 }
 
-.album-header h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #222;
-  margin-bottom: 40px;
-}
-.album-header span {
-  color: var(--main-color);
-}
-
-.album-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  position: relative;
-}
-
-.album-viewer {
-  width: 80%;
-  max-width: 600px;
-  aspect-ratio: 4 / 3;
+.album .page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
   overflow: hidden;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transition: transform 1s ease, opacity 0.5s ease;
 }
 
-.album-viewer img {
+.album .page img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: scale(1.05) rotateY(30deg);
-  transition: all 0.8s ease;
-  border-radius: 20px;
 }
 
-.album-viewer img.active {
-  opacity: 1;
-  transform: scale(1) rotateY(0deg);
-  z-index: 2;
+.album-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
 }
 
 .album-btn {
-  background: var(--main-color);
-  color: white;
+  background: #8e44ad;
+  color: #fff;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   cursor: pointer;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
+
 .album-btn:hover {
-  background: var(--accent-color);
+  background: #f1c40f;
   transform: scale(1.1);
 }
 
-.album-indicator {
-  margin-top: 25px;
+.album-counter {
   font-family: "Poppins", sans-serif;
   color: #333;
+  font-size: 1rem;
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
-  .album-viewer {
-    width: 95%;
-  }
-  .album-btn {
-    width: 40px;
-    height: 40px;
-  }
-}
-</style>
-
-<!-- Script -->
-<script>
-const images = document.querySelectorAll("#albumViewer img");
-const totalImages = images.length;
-let currentIndex = 0;
-
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const currentDisplay = document.getElementById("currentIndex");
-const totalDisplay = document.getElementById("totalImages");
-
-totalDisplay.textContent = totalImages;
-
-function showImage(index) {
-  images.forEach((img, i) => {
-    img.classList.toggle("active", i === index);
-  });
-  currentDisplay.textContent = index + 1;
-}
-
-prevBtn.addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + totalImages) % totalImages;
-  showImage(currentIndex);
-});
-
-nextBtn.addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % totalImages;
-  showImage(currentIndex);
-});
-
-showImage(currentIndex);
-</script>
-
+    </style>
 
     <!-- Servicios -->
     <section id="services" class="services">
@@ -1310,46 +1255,57 @@ showImage(currentIndex);
             }
         });
 
-        // Álbum interactivo
-        const album = document.getElementById('album');
-      
-        const currentPageEl = document.getElementById('current-page');
-        const totalPagesEl = document.getElementById('total-pages');
-        
-        let currentPage = 1;
-        const totalPages = 4;
-        
-        totalPagesEl.textContent = totalPages;
-        
-        function updateAlbum() {
-            // Actualizar el contador
-            currentPageEl.textContent = currentPage;
-            
-            // Actualizar estado de los botones
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-            
-            // Aplicar transformación al álbum
-            const rotation = (currentPage - 1) * 180;
-            album.style.transform = `rotateY(${rotation}deg)`;
-        }
-        
-        prevBtn.addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                updateAlbum();
-            }
-        });
-        
-        nextBtn.addEventListener('click', () => {
-            if (currentPage < totalPages) {
-                currentPage++;
-                updateAlbum();
-            }
-        });
-        
-        // Inicializar el álbum
-        updateAlbum();
+      // 🎨 Álbum Interactivo Mejorado
+const album = document.getElementById("album");
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+const currentPageEl = document.getElementById("current-page");
+const totalPagesEl = document.getElementById("total-pages");
+
+// Obtener todas las páginas dentro del álbum
+const pages = album.querySelectorAll(".page");
+const totalPages = pages.length;
+let currentPage = 0;
+
+// Mostrar el número total
+totalPagesEl.textContent = totalPages;
+
+// 🔄 Función para actualizar el álbum
+function updateAlbum() {
+  // Actualizar contador
+  currentPageEl.textContent = currentPage + 1;
+
+  // Actualizar botones
+  prevBtn.disabled = currentPage === 0;
+  nextBtn.disabled = currentPage === totalPages - 1;
+
+  // Aplicar rotación 3D a cada página según su posición
+  pages.forEach((page, index) => {
+    const rotation = (index - currentPage) * 180;
+    page.style.transform = `rotateY(${rotation}deg)`;
+    page.style.opacity = index === currentPage ? "1" : "0.4";
+    page.style.zIndex = totalPages - Math.abs(index - currentPage);
+  });
+}
+
+// 🎬 Eventos de navegación
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 0) {
+    currentPage--;
+    updateAlbum();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (currentPage < totalPages - 1) {
+    currentPage++;
+    updateAlbum();
+  }
+});
+
+// 🚀 Inicializar
+updateAlbum();
+
 
         // Crear partículas para el fondo
         function createParticles() {
